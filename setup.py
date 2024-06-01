@@ -1,14 +1,9 @@
 import requests
 import json
 
-CONFIG = {}
-
-
-def setup_planning():
+def setup_planning(CONFIG):
     print("======== PLANNING MYEFREI ========")
-    print("Veuillez vous rendre sur votre planning MyEfrei (https://www.myefrei.fr/portal/student/planning)")
-    print("Et cliquer sur le bouton \"COPIER URL PLANNING (ICAL)\"")
-    CONFIG["agenda_url"] = input("Puis collez le lien ici : ").strip().replace("webcal://", "https://")
+    CONFIG["agenda_url"] = input("Coller le lien ICAL : ").strip().replace("webcal://", "https://")
     r = requests.get(CONFIG["agenda_url"])
     if r.status_code != 200:
         print("Erreur : Le lien que vous avez entré n'est pas valide.")
@@ -16,7 +11,7 @@ def setup_planning():
     print(" ")
 
 
-def setup_discord():
+def setup_discord(CONFIG):
     print("======== DISCORD RPC ========")
     print("Veuillez choisir les données que vous souhaitez afficher sur votre profil Discord.")
     print("Vous pouvez choisir 2 données à afficher (1 par ligne).")
@@ -36,15 +31,3 @@ def setup_discord():
     CONFIG["large_icon"] = ["efrei_white", "efrei_white_bg", "efrei_black", "efrei_black_bg", "efrei_color", "efrei_color_bg"][int(input("Icône : ").strip()) - 1]
     CONFIG["large_icon_text"] = input("Texte de l'icône : ").strip()
     print(" ")
-
-
-print("Bienvenue sur Efrei Discord RPC !")
-print("Il semble que ce soit la première fois que vous lancez EfreiRPC.")
-print("La configuration va maintenant commencer.")
-print(" ")
-setup_planning()
-setup_discord()
-print("Configuration terminée !")
-print(" ")
-with open("config.json", "w") as f:
-    json.dump(CONFIG, f)

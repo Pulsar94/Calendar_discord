@@ -1,4 +1,3 @@
 icalendar
-pypresence
 requests
 pytz

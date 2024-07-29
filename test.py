@@ -20,7 +20,6 @@ def test2():
 
     for key in CONFIG.keys():
         if key in json_file:
-            print(type(CONFIG[key]))
             if isinstance(CONFIG[key], list):
                 for element in CONFIG[key]:
                     json_file[key].append(element)

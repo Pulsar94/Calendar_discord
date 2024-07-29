@@ -22,7 +22,7 @@ class Calendar:
 
     def number_user(self):
         """
-        Ask the user how many people he wants to add
+        Ask the user how many people he wants to add. Put a limit of 10 people.
         :return:
         """
         number_new_user = 0
@@ -42,13 +42,15 @@ class Calendar:
         :return: none
         """
         # TODO : convertir tout en dictionnaire de dictionnaire pour plus de clarté (nom de la personne, lien ICAL)
-        new_user = {"agenda_url": []}
+        new_user = {"agenda_url": {}}
         number_new_user = self.number_user()
 
         for i in range(number_new_user):
-            new_user["agenda_url"].append(input("Coller le lien ICAL : ").strip().replace("webcal://", "https://"))
+            # new_user["agenda_url"].append(input("Coller le lien ICAL : ").strip().replace("webcal://", "https://"))
+            name_new_user = input("Nom de la personne : ").strip()
+            new_user["agenda_url"][name_new_user] = input("Coller le lien ICAL : ").strip().replace("webcal://", "https://")
 
-        for key in new_user.keys():
+        for key, value in new_user.items():
             if key in self.CONFIG:  # self.CONFIG = old file
                 for element in new_user[key]:
                     if element not in self.CONFIG[key]:
